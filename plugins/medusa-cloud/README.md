@@ -39,7 +39,14 @@ claude
 
 ## Skills Included
 
-1. **using-medusa-cloud** - Cloud CLI operations (setup, deployments, debugging, environments, variables)
+1. **using-medusa-cloud** - Workflow guide for Cloud CLI operations (setup, deployments, debugging, environments, variables)
+2. **cloud-cli-auth** - Execute `mcloud whoami`, `mcloud use`, `mcloud login`, `mcloud logout`, `mcloud version`
+3. **cloud-cli-deployments** - Execute `mcloud deployments list/get/build-logs`
+4. **cloud-cli-environments** - Execute `mcloud environments list/get/create/delete/redeploy/trigger-build`
+5. **cloud-cli-logs** - Execute `mcloud logs` with all filter options
+6. **cloud-cli-variables** - Execute `mcloud variables list/get`
+7. **cloud-cli-organizations** - Execute `mcloud organizations list/get`
+8. **cloud-cli-projects** - Execute `mcloud projects list/get/delete`
 
 ## Privacy
 
