@@ -44,6 +44,45 @@ mcloud deployments build-logs "$DEPLOYMENT_ID" --type storefront
 
 `build-logs` returns a `build_status` field. When `failed`, check `metadata.failed_docker_layer` via `mcloud deployments get --json` to identify the failing layer.
 
+## Reproduce a Build Failure Locally
+
+When `build-logs` isn't enough to pinpoint a `build-failed` failure, reproduce the Cloud build locally with `mcloud local build` (mcloud CLI v0.1.10+). It runs the same Docker build Cloud runs, inferring the root path and build variables from the linked project and environment — so you can iterate on a fix without pushing to the tracked branch and waiting for a full Cloud build each time.
+
+> **CRITICAL:** `mcloud local build` requires Docker installed and running, and must run from inside the project's Git repo. It has **no `--json` flag** — it streams plaintext and signals the result through its exit code (`0` = success). Do not parse its output as JSON. It reproduces `build-failed` (build) failures only, not `deployment-failed` (runtime) failures.
+
+Check out the same commit the failed deployment built, then reproduce it so the local build matches:
+
+```bash
+DEPLOYMENT_ID=$(
+  mcloud deployments list --json \
+    | jq -r '[.[] | select(.backend_status == "build-failed")][0].id'
+)
+COMMIT=$(mcloud deployments get "$DEPLOYMENT_ID" --json | jq -r '.commit_hash')
+
+git checkout "$COMMIT"
+
+if mcloud local build; then
+  echo "Build succeeded locally; failure not reproducible from this commit."
+else
+  echo "Build failed locally; inspect the streamed output for the failing step."
+fi
+
+# For a storefront build failure, build the storefront instead
+mcloud local build --type storefront
+```
+
+If the failure is variable-related, reproduce and test a fix without editing code by overriding variables:
+
+```bash
+# Override a single build variable
+mcloud local build --var NODE_ENV=production
+
+# Or build against a local .env file
+mcloud local build --env-file .env
+```
+
+Once the local build exits `0`, push the fix to the tracked branch and start a fresh Cloud build with `mcloud environments trigger-build`.
+
 ## Deployment Failure Recipe
 
 Use when `backend_status == "deployment-failed"` (build succeeded, runtime crashed):

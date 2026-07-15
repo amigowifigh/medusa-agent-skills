@@ -1,6 +1,6 @@
 # Medusa Cloud Plugin
 
-Skills for managing Medusa Cloud resources through the Cloud CLI (`mcloud`). Covers setup, deployments, debugging, environment management, and variables.
+Skills for managing Medusa Cloud resources through the Cloud CLI (`mcloud`). Covers setup, deployments, debugging, local build reproduction, environment management, and variables.
 
 > For installation and usage with other agents, refer to the [main README](../../README.md).
 
@@ -40,13 +40,14 @@ claude
 ## Skills Included
 
 1. **using-medusa-cloud** - Workflow guide for Cloud CLI operations (setup, deployments, debugging, environments, variables)
-2. **cloud-cli-auth** - Execute `mcloud whoami`, `mcloud use`, `mcloud login`, `mcloud logout`, `mcloud version`
-3. **cloud-cli-deployments** - Execute `mcloud deployments list/get/build-logs`
-4. **cloud-cli-environments** - Execute `mcloud environments list/get/create/delete/redeploy/trigger-build`
-5. **cloud-cli-logs** - Execute `mcloud logs` with all filter options
-6. **cloud-cli-variables** - Execute `mcloud variables list/get`
-7. **cloud-cli-organizations** - Execute `mcloud organizations list/get`
-8. **cloud-cli-projects** - Execute `mcloud projects list/get/delete`
+2. **mcloud-auth** - Execute `mcloud whoami`, `mcloud use`, `mcloud login`, `mcloud logout`, `mcloud version`
+3. **mcloud-deployments** - Execute `mcloud deployments list/get/build-logs`
+4. **mcloud-environments** - Execute `mcloud environments list/get/create/delete/redeploy/trigger-build`
+5. **mcloud-logs** - Execute `mcloud logs` with all filter options
+6. **mcloud-variables** - Execute `mcloud variables list/get/set/delete`
+7. **mcloud-organizations** - Execute `mcloud organizations list/get`
+8. **mcloud-projects** - Execute `mcloud projects list/get/delete`
+9. **mcloud-local** - Execute `mcloud local build` to reproduce a Cloud build locally
 
 ## Privacy
 
